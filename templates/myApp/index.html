@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>For adding a new photo <a href="{% url 'add_photo' %}">click here</a></h2>
+<div class="container py-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for photo in photos %}
+        <div class="col">
+            <div class="card shadow-sm border-light rounded">
+                <img src="{{ photo.picture.url }}" class="card-img-top img-fluid" alt="{{ photo.caption }}">
+                <div class="card-body">
+                    <p class="card-text text-center">{{ photo.caption }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+    
