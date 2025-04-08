@@ -1,0 +1,1 @@
+web: gunicorn photoAlbumViewer.wsgi --bind 0.0.0.0:5000
