@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'photoAlbumViewer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql.psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'djangophoto',
         'USER': 'admin',
         'PASSWORD': '123456',
