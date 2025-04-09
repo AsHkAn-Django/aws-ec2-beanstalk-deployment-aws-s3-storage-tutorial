@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-yv$(!9r^9hck#l2z-0+m&pmh=00^6fopvj7__88^pw9^pnjk$a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.61.247.231', 'localhost']
 
 
 # Application definition
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'photoAlbumViewer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3', 
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 
