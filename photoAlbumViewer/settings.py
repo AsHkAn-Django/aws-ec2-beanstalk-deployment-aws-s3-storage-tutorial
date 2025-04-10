@@ -40,14 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # 3rd-party packages
     'django_bootstrap5',
+    'storages',
 
+    # Apps
     'myApp',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,8 +135,30 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# AWS S3
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID_ENV')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY_ENV')
+
+# Storage Confugaration for Amazon S3
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME_ENV')
+AWS_S3_CUSTOME_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE_ENV')
+
+
+STORAGES = {
+    
+    # Media file management
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    
+    #CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
