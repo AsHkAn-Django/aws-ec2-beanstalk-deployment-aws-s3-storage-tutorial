@@ -16,64 +16,69 @@ Before getting started, ensure you have:
 - **Python 3.8+**
 - **Django** (latest version recommended)
 - **Boto3** and **django-storages** (for AWS S3 integration)
-- An **AWS account** (or another cloud provider with similar services)
+- An **AWS account** 
 
-### Installation
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yourusername/photo-album-cloud.git
-   cd photo-album-cloud
-2. Create a Virtual Environment and Activate It:
+# <span style="color:red">Deployment <span style="color:white">On</span> <span style="color:green">AWS EC2</span></span>
 
-```bash
-python3 -m venv env
-source env/bin/activate   # On Windows: env\Scripts\activate
-```
+1. do everything necessary for your project and deploy it on gitHub
+---
 
-3. Install Dependencies:
+2. amazon > ec2 dashboard > instances > Launch instances > choose a name > choose ubuntu OS > 
+Create security gtoup and Create SSH traffic from should be ticked > Launch instance > proceed without key pair > Launch instance
+go to instances > wait for status check to becomes green > click on the checkbox on the instance that you created > click on connect
+on top of the page > choose ```EC2 Instance Connect``` and click on Connect > now you are in cloudShell
+---
 
-```bash
+3. Type these in couldShell
+```shell
+sudo apt-get update
+# Copy your github Url HTTPS
+git clone <your-github-link>
+ls 
+# You should see your project folder
+cd <your-project-name>
+# Create venv and isntall requirements
+sudo apt install python3-pip -y
 pip install -r requirements.txt
 ```
+---
 
-4. Configure AWS S3 Settings: Update your Django settings (settings.py) with your AWS S3 credentials and configuration:
+4. Go back to EC2 > instances > click on your ```instance ID``` which is a link > scroll down to and click on ```Security``` tab >
+scroll down and click on ```Security groups``` which is a link > scroll down adn click on ```Edit inbound rules``` >
+Add rule > set ```Port range``` on ```8000``` and ```DIDR blocks``` to ```0.0.0.0/0``` > Save rules
+---
 
-```python
-# settings.py
-AWS_ACCESS_KEY_ID = 'your-access-key-id'
-AWS_SECRET_ACCESS_KEY = 'your-secret-access-key'
-AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+5. Go back to EC2 > instances > click on checkbox belongs to your instance > scroll down and find ```Public IPv4 address``` >
+copy it 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+---
+6. Now you should add the ip to your ```ALLOWED_HOSTS``` that can be done either in the couldShell or in your github repository and 
+then pull request from cloudShell, i will explain the cloudShell version
+
+---
+7. Head back to your cloudShell on EC2
+```shell
+ls 
+# you should see your project detail
+nano <yourProjectName>/settings.py
+# Now you are in your settings.py
+# Scroll down and add the ip to the Allowed_HOSTS or just type '*' in it
+# which would accept any domain
+# now for saving it do these combinations
+# Ctrl+o     press Enter    Ctrl+x
 ```
+---
 
-5. Run Migrations and Start the Server:
-
-```bash
-python manage.py migrate
-python manage.py runserver
+8. run this and your server should be up
+```shell
+python3 manage.py runserver 0.0.0.0:8000
 ```
+---
 
-## Usage
-- Uploading Images: Use the image upload page in your browser to upload photos. All images will be stored in your configured cloud storage.
-
-- Viewing Images: The app displays your photos by fetching them securely from the cloud.
-
-- Security: Media access is protected via configured permissions, ensuring only authorized users can view your files.
-
-## Deployment
-For production deployment:
-
-- Use a production-grade server like Gunicorn.
-
-- Securely manage environment variables for your AWS credentials.
-
-- Configure proper CORS settings and bucket policies in AWS S3.
+9. go to this page and you have your server:)
+```shell
+htttp://<the-ip-that-copied>:8000
+```
 
 ## Contributing
 Contributions are welcome! Whether you're a beginner or an experienced developer, feel free to:
