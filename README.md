@@ -224,13 +224,3 @@ Contributions are welcome! Whether you're a beginner or an experienced developer
 - Make improvements or add features
 
 - Submit a pull request If you encounter any issues or have suggestions, please open an issue on GitHub.
-
-## License
-This project is licensed under the MIT License.
-
-Tags
-#beginner-friendly #Django #AWS S3 #Cloud Storage #Photo Album #Media #Integration #Security #django-storages 
-
-```vbnet
-This README provides clear, step-by-step instructions, includes essential setup and deployment details, and is designed to be approachable for beginners. Enjoy building your cloud-integrated photo album!
-```
