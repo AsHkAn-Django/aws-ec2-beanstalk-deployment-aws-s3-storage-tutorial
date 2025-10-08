@@ -218,9 +218,6 @@ go to IAM > users > checkbox on your user > and delete > type the name of your u
 
 ## Contributing
 Contributions are welcome! Whether you're a beginner or an experienced developer, feel free to:
-
 - Fork the repository
-
 - Make improvements or add features
-
 - Submit a pull request If you encounter any issues or have suggestions, please open an issue on GitHub.
